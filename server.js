@@ -8,15 +8,26 @@ app.get("/", (req, res) => {
 });
 
 const mahasiswa = [
-  { nim: "001", nama: "Hirzi Ahnaf", jurusan: "Informatika" },
-  { nim: "002", nama: "Budi Santoso", jurusan: "Sistem Informasi" },
-  { nim: "003", nama: "Citra Dewi", jurusan: "Sains Data" },
+  { nim: "2410511142", nama: "Hirzi Ahnaf", jurusan: "Informatika" },
+  { nim: "2410512003", nama: "Budi Santoso", jurusan: "Sistem Informasi" },
+  { nim: "2410513111", nama: "Citra Dewi", jurusan: "Sains Data" },
 ];
-
-app.listen(PORT, () => {
-  console.log(`Example app listening on port ${PORT}`);
-});
 
 app.get("/mahasiswa", (req, res) => {
   res.json(mahasiswa);
+});
+
+app.get("/mahasiswa/:nim", (req, res) => {
+  const { nim } = req.params;
+  const data = mahasiswa.find((m) => m.nim === nim);
+
+  if (!data) {
+    return res.status(404).json({ message: "Mahasiswa tidak ditemukan" });
+  }
+
+  res.json(data);
+});
+
+app.listen(PORT, () => {
+  console.log(`Example app listening on port ${PORT}`);
 });
