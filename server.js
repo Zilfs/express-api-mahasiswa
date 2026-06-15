@@ -29,9 +29,16 @@ app.get("/mahasiswa/:nim", (req, res) => {
 });
 
 app.post("/mahasiswa", (req, res) => {
-  const { nama, nim } = req.body;
+  const { nama, nim, jurusan } = req.body || {};
 
-  mahasiswa.push({ nim, nama, jurusan: req.body.jurusan || "-" });
+  if (!nama || !nim) {
+    return res.status(400).json({
+      message:
+        "Data tidak valid. Pastikan nama dan nim dikirim, dan header Content-Type: application/json sudah diset.",
+    });
+  }
+
+  mahasiswa.push({ nim, nama, jurusan: jurusan || "-" });
 
   res.json({ message: `Berhasil menambahkan mahasiswa baru bernama ${nama}` });
 });
