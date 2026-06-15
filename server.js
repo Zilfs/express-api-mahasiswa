@@ -28,6 +28,14 @@ app.get("/mahasiswa/:nim", (req, res) => {
   res.json(data);
 });
 
+app.post("/mahasiswa", (req, res) => {
+  const { nama, nim } = req.body;
+
+  mahasiswa.push({ nim, nama, jurusan: req.body.jurusan || "-" });
+
+  res.json({ message: `Berhasil menambahkan mahasiswa baru bernama ${nama}` });
+});
+
 app.listen(PORT, () => {
   console.log(`Example app listening on port ${PORT}`);
 });
