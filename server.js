@@ -16,3 +16,7 @@ const mahasiswa = [
 app.listen(PORT, () => {
   console.log(`Example app listening on port ${PORT}`);
 });
+
+app.get("/mahasiswa", (req, res) => {
+  res.json(mahasiswa);
+});
